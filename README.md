@@ -175,6 +175,7 @@ transport.sendMail({
 
   * **SMTP** for using SMTP
   * **SES** for using Amazon SES
+  * **AWSSDK** for using Amazon SES with AWS Identity and Access Management (IAM) roles
   * **Sendmail** for utilizing systems *sendmail* command
   * **Pickup** for storing the e-mail in a directory on your machine
   * **Direct** for sending e-mails directly to recipients MTA servers
@@ -341,6 +342,27 @@ Example:
 var transport = nodemailer.createTransport("SES", {
     AWSAccessKeyID: "AWSACCESSKEY",
     AWSSecretKey: "AWS/Secret/key"
+});
+```
+
+### Setting up AWSSDK
+
+AWSSDK use the aws-sdk node module that wraps all the HTTP requests to SES servers.
+It allows the use of IAM roles instead of AWS credentials (but still usable).
+
+Possible AWSSDK options are the following:
+
+ * **accessKeyId** - *optional* AWS access key
+ * **secretAccessKey** - *optional* AWS secret
+ * **region** - *optional* region to send service requests to. (defaults to us-east-1)
+
+Example:
+
+```javascript
+var transport = nodemailer.createTransport("AWSSDK", {
+    accessKeyId: "AWSACCESSKEY",
+    secretAccessKey: "AWS/Secret/key",
+    region: "us-east-1"
 });
 ```
 
