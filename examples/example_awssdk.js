@@ -4,7 +4,7 @@ var nodemailer = require('../lib/nodemailer'),
 
 // Create an Amazon SES transport object
 var transport = nodemailer.createTransport("AWSSDK", {
-        accessKeyId: "AWSACCESSKEY" // not require with IAM roles
+        accessKeyId: "AWSACCESSKEY", // not require with IAM roles
         secretAccessKey: "/AWS/SECRET" // not require with IAM roles
     });
 
