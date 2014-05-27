@@ -348,8 +348,8 @@ var transport = nodemailer.createTransport("SES", {
 ### Setting up AWSSDK
 
 AWSSDK use the aws-sdk node module that wraps all the HTTP requests to SES servers.
-It allows the use of IAM roles instead of AWS credentials (but still usable).
-Credentials can also be specified using environment variables.
+If running on an Amazon EC2 instance, it allows the use of IAM Roles instead of AWS credentials.
+If necessary, the AWS credentials can still be provided to the *createTransport* method or through environment variables ( AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY ).
 
 Possible AWSSDK options are the following:
 
