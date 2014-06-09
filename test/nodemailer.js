@@ -274,23 +274,6 @@ exports["Transport close"] = {
             test.ok(true);
             test.done();
         });
-    },
-
-    "AWSSDK - Callback in transport.close": function(test){
-        var transport = nodemailer.createTransport("AWSSDK", {});
-        transport.close(function(){
-            test.ok(true);
-            test.done();
-        });
-    },
-
-    "AWSSDK - No callback in transport.close": function(test){
-        var transport = nodemailer.createTransport("AWSSDK", {});
-        transport.close();
-        process.nextTick(function(){
-            test.ok(true);
-            test.done();
-        });
     }
 };
 

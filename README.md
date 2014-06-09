@@ -174,8 +174,7 @@ transport.sendMail({
 `type` parameter can be one of the following:
 
   * **SMTP** for using SMTP
-  * **SES** for using Amazon SES
-  * **AWSSDK** for using Amazon SES with AWS Identity and Access Management (IAM) roles
+  * **SES** for using Amazon SES with AWS Identity and Access Management (IAM) roles
   * **Sendmail** for utilizing systems *sendmail* command
   * **Pickup** for storing the e-mail in a directory on your machine
   * **Direct** for sending e-mails directly to recipients MTA servers
@@ -326,13 +325,14 @@ var transportOptions = {
 
 ### Setting up SES
 
-SES is actually a HTTP based protocol, the compiled e-mail and related info
-(signatures and such) are sent as a HTTP request to SES servers.
+SES use the aws-sdk node module that wraps all the HTTP requests to SES servers.
+If running on an Amazon EC2 instance, it allows the use of IAM Roles instead of AWS credentials.
+If necessary, the AWS credentials can still be provided to the *createTransport* method or through environment variables ( AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY ).
 
 Possible SES options are the following:
 
- * **AWSAccessKeyID** - AWS access key (required)
- * **AWSSecretKey** - AWS secret (required)
+ * **AWSAccessKeyID** - *optional* AWS access key
+ * **AWSSecretKey** - *optional* AWS secret
  * **ServiceUrl** - *optional* API end point URL (defaults to *"https://email.us-east-1.amazonaws.com"*)
  * **AWSSecurityToken** - *optional* security token
 
@@ -342,28 +342,6 @@ Example:
 var transport = nodemailer.createTransport("SES", {
     AWSAccessKeyID: "AWSACCESSKEY",
     AWSSecretKey: "AWS/Secret/key"
-});
-```
-
-### Setting up AWSSDK
-
-AWSSDK use the aws-sdk node module that wraps all the HTTP requests to SES servers.
-If running on an Amazon EC2 instance, it allows the use of IAM Roles instead of AWS credentials.
-If necessary, the AWS credentials can still be provided to the *createTransport* method or through environment variables ( AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY ).
-
-Possible AWSSDK options are the following:
-
- * **accessKeyId** - *optional* AWS access key
- * **secretAccessKey** - *optional* AWS secret
- * **region** - *optional* region to send service requests to. (defaults to us-east-1)
-
-Example:
-
-```javascript
-var transport = nodemailer.createTransport("AWSSDK", {
-    accessKeyId: "AWSACCESSKEY",
-    secretAccessKey: "AWS/Secret/key",
-    region: "us-east-1"
 });
 ```
 
