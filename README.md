@@ -329,12 +329,21 @@ SES use the aws-sdk node module that wraps all the HTTP requests to SES servers.
 If running on an Amazon EC2 instance, it allows the use of IAM Roles instead of AWS credentials.
 If necessary, the AWS credentials can still be provided to the *createTransport* method or through environment variables ( AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY ).
 
-Possible SES options are the following:
+The SES options were renamed in v0.7. The new names are compatible with the naming convention of the AWS SDK for javascript in nodeJS used in Nodemailer. Thus you can pass a configuration object compatible with the AWS SDK to the createTransport() function.
 
- * **AWSAccessKeyID** - *optional* AWS access key
- * **AWSSecretKey** - *optional* AWS secret
- * **ServiceUrl** - *optional* API end point URL (defaults to *"https://email.us-east-1.amazonaws.com"*)
- * **AWSSecurityToken** - *optional* security token
+  Possible SES options are the following:
+
+  * **accessKeyId** - *optional* AWS access key.
+  * **secretAccessKey** - *optional* AWS secret.
+  * **sessionToken** - *optional* session token.
+  * **region** - *optional* Specify the region to send the service request to. Default to *us-east-1*
+
+  Deprecated parameters. These are kept for backward compatibility reasons to support users of Nodemailer prior to v0.7. Any new development should use the new parameters above:
+
+ * **AWSAccessKeyID** - *optional* AWS access key. The option **accessKeyId** should be used instead.
+ * **AWSSecretKey** - *optional* AWS secret. The option **secretAccessKey** should be used instead.
+ * **ServiceUrl** - *optional* API end point URL (defaults to *"https://email.us-east-1.amazonaws.com"*). The option **region** should be used instead.
+ * **AWSSecurityToken** - *optional* security token. The option **sessionToken** should be used instead.
 
 Example:
 
@@ -344,6 +353,7 @@ var transport = nodemailer.createTransport("SES", {
     AWSSecretKey: "AWS/Secret/key"
 });
 ```
+**As of v0.7, ```sendmail()``` return only ```messageId``` instead of ```message```, ```response``` and ```messageID```**
 
 ### Setting up Sendmail
 
